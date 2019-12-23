@@ -270,7 +270,7 @@ void externalSort() {
         for (i = 0; i < 3; i++) {
             fclose(f[i]);
         }
-        //remove ("inputX_sorted.txt"); //if it already exists we can't rename it...
+        remove ("merged_output.txt"); //if it already exists we can't rename it...
         rename ("inputX_sorted.txt", "merged_output.txt");
     printf("\n\nCompleted sorting all the files successfully.\n\n");
 }
