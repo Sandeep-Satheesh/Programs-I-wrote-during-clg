@@ -1,1 +1,1 @@
-This branch contains specifically Python programs written by me while in college. Written and tested on PyCharm Community Edition IDE for Windows, with Python v3.7. Please feel free to inform me of any serious bugs that might not have been considered during development.
+This branch contains specifically Python programs written by me while in college. Written and tested on PyCharm Community Edition IDE (and some in Jupyter Notebook) for Windows, with Python v3.7. Please feel free to inform me of any serious bugs that might not have been considered during development.
