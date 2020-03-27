@@ -1,10 +1,10 @@
 #include<iostream>
-#include<stdlib.h>
-#pragma GCC optimize (Ofast,O3,fast-math,no-stack-protector,unroll-loops)
+// #pragma GCC optimize (Ofast,O3,fast-math,no-stack-protector,unroll-loops) //unnecessary optimizations...
 
 using namespace std;
 
 void printChessboard(int** chessboard, int& n) {
+    //Prints 1 if there's a queen at that position, 0 otherwise.
     cout<<"\n\t\t";
     cout.fill('-');
     cout.width(2*(n+1)); cout<<"\n\t\t";
@@ -18,8 +18,9 @@ void printChessboard(int** chessboard, int& n) {
 }
 
 bool anyQueenIsUnderAttack(int** chessboard, int& n) {
+    //check if the board has any queen that is under attack by any other queen in the board.
+    
     //check for same row
-
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
             for (int k = j+1; k < n; k++)
@@ -42,20 +43,22 @@ bool anyQueenIsUnderAttack(int** chessboard, int& n) {
 }
 
 bool NQueens(int **chessboard, int& n, int startCol) {
-
+    //main logic of the code. returns true if it was able to place all the queens in the right places. else false.
+    
+    //base condition...
     if (startCol > n) return true;
 
 
     for (int i = 0; i < n; i++) {
-        chessboard[i][startCol] = 1;
+        chessboard[i][startCol] = 1; //place a queen at that position and see if it's safe
         if (anyQueenIsUnderAttack(chessboard, n))
-            chessboard[i][startCol] = 0;
-        else if (NQueens(chessboard, n, startCol+1))
-            return true;
+            chessboard[i][startCol] = 0; //undo changes and go to next row
+        else if (NQueens(chessboard, n, startCol+1)) //the place was safe, therefore check if we can place the next queen in the next col.
+            return true; //that position was also safe; this goes on in a recursive fashion until we reach base case.
         else
-            chessboard[i][startCol] = 0;
+            chessboard[i][startCol] = 0; // not safe position; undo changes...
     }
-    return false;
+    return false; //executed when finished checking all rows in for loop and still finding no correct placement; need to backtrack.
 }
 
 int main() {
