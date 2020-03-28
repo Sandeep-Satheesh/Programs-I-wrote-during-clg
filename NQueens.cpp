@@ -57,15 +57,10 @@ bool placedQueenIsUnsafe(int**& chessboard, int& insertedRow, int& insertedCol, 
     else if (insertedCol + insertedRow == n - 1) {
         //it's on the other diagonal
         for (int i = 0; i < n; i++)
-            if (i != insertedRow && n - 1 - i != insertedCol && chessboard[i][n - i - 1]) {
+            if (i != insertedRow && n - 1 - i != insertedCol && chessboard[i][n - i - 1])
                 return true;
-            }
-        if (insertedRow> insertedCol)
-            for (int i = insertedRow - insertedCol, j = 0; j < n && i < n; i++, j++) //insertedRow - insertedCol gives the starting row no. of the diagonal corresponding to that element.
-                if (i != insertedRow && j != insertedCol && chessboard[i][j])
-                    return true;
     }
-    else if (insertedRow > insertedCol) {
+   if (insertedRow > insertedCol) {
          //it's in the triangular region under the main diagonal
 
          //scanning in the direction of the main diagonal - from top left to bottom right
