@@ -326,11 +326,9 @@ void generateCanonicalGraph(char ss) {
         CanonicalState currState = unexpandedStatesQueue.front();
         unexpandedStatesQueue.pop();
 
-        map<char, int> done;
 
         for (prodRule p : currState.rules) {
-            //displayStates();
-            //pause();
+            map<char, int> done;
             string rhs = p.RHS;
             int i = 0; //lookAhead pointer
             while (i < rhs.length() && rhs[i] != '.') i++;
@@ -428,6 +426,8 @@ int main() {
                         cout<<"\nThe symbol you entered is not found in the grammar, or is a reserved symbol. Please try again!\nEnter start symbol: ";
                         cin>>ss;
                     }
+                    dbg(terminals, nonTerminals);
+                    pause();
                     generateCanonicalGraph(ss);
                     break;
 
