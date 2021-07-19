@@ -1,3 +1,4 @@
+#include "cipherutils/matrixutils.h"
 #include "cipherutils/matrixutils.cpp"
 
 using namespace std;
@@ -6,7 +7,7 @@ using namespace std;
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 
 int modularMI(int a, int m) {
-    for (int x = 1; x <= m; x++) {
+    for (int x = 1; x < m; x++) {
         if (((a%m)*(x%m))%m == 1) return x;
     }
     return -1;
@@ -62,10 +63,10 @@ vector<vector<int>> findInverseMatrix(vector<vector<int>> m) {
             while (adjointMatrix[i][j] < 0) adjointMatrix[i][j] += 26;
         }
     }
-    //find modular multiplicative inverse of determinant wrt 26
+    //find multiplicative inverse of determinant under mod 26
     int a = modularMI(determinant, 26);
     if (a <= 0) {
-        cout<<"\nERROR: Message cannot be decrypted! Modular multiplicative inverse value is <= 0.\n\n";
+        cout<<"\nERROR: Message cannot be decrypted! Modular multiplicative inverse value does not exist for key matrix.\n\n";
         return {};
     }
     //inverse matrix => (a)*adj(A). mod by 26 to keep it within range of A-Z
@@ -106,7 +107,7 @@ string decrypt(string key, string ciphertext) {
     vector<vector<vector<int>>> P = splitToMatrices(ciphertext, sqrt(key.length()));
 
     vector<vector<int>> Kinverse = findInverseMatrix(K);
-    if (K.size() == 0) return "";
+    if (Kinverse.size() == 0) return "";
 
     string plaintextMsg = "";
     for (int i = 0; i < P.size(); i++) {
